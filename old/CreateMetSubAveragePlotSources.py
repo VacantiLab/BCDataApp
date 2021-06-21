@@ -1,14 +1,5 @@
-def CreateSubtypeAveragePlotSources(df_p_subtype_average,df_p_subtype_sd,df_m_subtype_average,df_m_subtype_sd,subtypes,gene_plot):
+def CreateMetSubAveragePlotSources(df_p_subtype_average,df_p_subtype_sd,df_m_subtype_average,df_m_subtype_sd,subtypes,gene_plot):
   from pdb import set_trace
-
-  # import necessary bokeh packages
-  from bokeh.io import curdoc
-  from bokeh.layouts import column, row, layout, widgetbox
-  from bokeh.models import ColumnDataSource, Slider, TextInput, FactorRange, Select, Whisker
-  from bokeh.models.widgets.markups import Div
-  from bokeh.plotting import figure, output_file
-  from bokeh.events import DoubleTap
-  from bokeh.transform import factor_cmap
 
   # Collect the data to be displayed initially
   # Initialize protein lists
@@ -56,8 +47,4 @@ def CreateSubtypeAveragePlotSources(df_p_subtype_average,df_p_subtype_sd,df_m_su
   source_dict_subtype_m['lower'] = lower_m
   source_dict_subtype_m['LegendGroup'] = LegendGroup_m
 
-  # create the plot data source objects from the above dictionaries for each gene
-  source_subtype_p = ColumnDataSource(data=source_dict_subtype_p)
-  source_subtype_m = ColumnDataSource(data=source_dict_subtype_m)
-
-  return(source_subtype_p, source_subtype_m)
+  return(source_dict_subtype_p, source_dict_subtype_m)

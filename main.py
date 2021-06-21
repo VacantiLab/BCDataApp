@@ -23,6 +23,7 @@ from StylePlot import StylePlot
 from CreateSubtypeAverageDFs import CreateSubtypeAverageDFs
 from CreateSubtypeAveragePlotSources import CreateSubtypeAveragePlotSources
 from CreateMetSubAverageDFs import CreateMetSubAverageDFs
+from MakeSubtypePlots import MakeSubtypePlots
 
 # Import the data
 [df_p,df_m,x_data,genes,subtypes,subtype_colors] = ImportData()
@@ -138,48 +139,32 @@ plot_m = StylePlot(plot_m)
 # create protein average and standard deviation data frames
 [df_p_subtype_average,df_p_subtype_sd,df_m_subtype_average,df_m_subtype_sd] = CreateSubtypeAverageDFs(df_p,df_m,subtypes)
 
-# Create the subtype average plot sources
-[source_dict_subtype_p, source_dict_subtype_m] = CreateSubtypeAveragePlotSources(df_p_subtype_average,df_p_subtype_sd,df_m_subtype_average,df_m_subtype_sd,subtypes,gene_plot)
+# Create the subtype plot sources
+[source_subtype_p, source_subtype_m] = CreateSubtypeAveragePlotSources(df_p_subtype_average,df_p_subtype_sd,df_m_subtype_average,df_m_subtype_sd,subtypes,gene_plot)
 
-# create the plot data source objects from the above dictionaries for each gene
-source_subtype_p = ColumnDataSource(data=source_dict_subtype_p)
-source_subtype_m = ColumnDataSource(data=source_dict_subtype_m)
-
-# In itialize the figure object
-plot_subtype_p=figure(x_range=FactorRange(*source_subtype_p.data['x']), title='', x_axis_label='',y_axis_label='protein z-score',plot_width=350,plot_height=200)
-plot_subtype_m=figure(x_range=FactorRange(*source_subtype_m.data['x']), title='', x_axis_label='',y_axis_label='mRNA z-score',plot_width=350,plot_height=200)
-#     x_range specifies that the data is categorical
-
-# make protein plots
-plot_subtype_p.circle('x','y',source=source_subtype_p,fill_color=factor_cmap('x', palette=subtype_colors, factors=subtypes, start=1, end=2),line_color=factor_cmap('x', palette=subtype_colors, factors=subtypes, start=1, end=2),legend_group='LegendGroup')
-plot_subtype_p.circle('x','upper',source=source_subtype_p,size=0) # invisible, here only to set initial visible range correctly
-plot_subtype_p.circle('x','lower',source=source_subtype_p,size=0)# invisible, here only to set initial visible range correctly
-
-# make mRNA plots
-plot_subtype_m.circle('x','y',source=source_subtype_m,fill_color=factor_cmap('x', palette=subtype_colors, factors=subtypes, start=1, end=2),line_color=factor_cmap('x', palette=subtype_colors, factors=subtypes, start=1, end=2),legend_group='LegendGroup')
-plot_subtype_m.circle('x','upper',source=source_subtype_m,size=0) # invisible, here only to set initial visible range correctly
-plot_subtype_m.circle('x','lower',source=source_subtype_m,size=0)# invisible, here only to set initial visible range correctly
-
-# Add error bars
-# protein plot
-W_p = Whisker(source=source_subtype_p, base="x", upper="upper", lower="lower",line_color=factor_cmap('x', palette=subtype_colors, factors=subtypes, start=1, end=2))
-W_p.upper_head.line_color = factor_cmap('x', palette=subtype_colors, factors=subtypes, start=1, end=2)
-W_p.lower_head.line_color = factor_cmap('x', palette=subtype_colors, factors=subtypes, start=1, end=2)
-plot_subtype_p.add_layout(W_p)
-# mRNA plot
-W_m = Whisker(source=source_subtype_m, base="x", upper="upper", lower="lower",line_color=factor_cmap('x', palette=subtype_colors, factors=subtypes, start=1, end=2))
-W_m.upper_head.line_color = factor_cmap('x', palette=subtype_colors, factors=subtypes, start=1, end=2)
-W_m.lower_head.line_color = factor_cmap('x', palette=subtype_colors, factors=subtypes, start=1, end=2)
-plot_subtype_m.add_layout(W_m)
+# Add the lines and dots to the subtype plot objects
+[plot_subtype_p,plot_subtype_m] = MakeSubtypePlots(source_subtype_p,source_subtype_m,subtype_colors,subtypes)
 
 # set aesthetic values
 plot_subtype_p = StylePlot(plot_subtype_p,DotBar=True)
 plot_subtype_m = StylePlot(plot_subtype_m,DotBar=True)
 
+
 # Line-Bar Plot for Metabolite Subtypes #######################################
 # create protein average and standard deviation data frames
 [x_data_met,df_p_metsub_average,df_p_metsub_sd,df_m_metsub_average,df_m_metsub_sd] = CreateMetSubAverageDFs(df_p,df_m)
 
+# Create the subtype average plot sources
+MetSubtypes = ['LP','HP']
+[source_metsub_p, source_metsub_m] = CreateSubtypeAveragePlotSources(df_p_metsub_average,df_p_metsub_sd,df_m_metsub_average,df_m_metsub_sd,MetSubtypes,gene_plot)
+
+# Add the lines and dots to the subtype plot objects
+metsub_colors = ['red','blue']
+[plot_metsub_p,plot_metsub_m] = MakeSubtypePlots(source_metsub_p,source_metsub_m,metsub_colors,MetSubtypes)
+
+# set aesthetic values
+plot_metsub_p = StylePlot(plot_metsub_p,DotBar=True)
+plot_metsub_m = StylePlot(plot_metsub_m,DotBar=True)
 
 
 # Application Layout ###########################################################
@@ -191,7 +176,7 @@ ColumnSpacer = Div(width=100)
 
 TextBoxes = column(RowSpacer,gene_text[0],gene_text[1],gene_text[2],gene_text[3])
 ProteinPlots = column(ProteinTitle,plot_p,RowSpacer,plot_subtype_p,RowSpacer,MetHeatMap)
-mRNAPlots = column(mRNATitle,plot_m,RowSpacer,plot_subtype_m)
+mRNAPlots = column(mRNATitle,plot_m,RowSpacer,plot_subtype_m,RowSpacer,plot_metsub_p,RowSpacer,plot_metsub_m)
 l = layout([
   [ProteinPlots,ColumnSpacer,mRNAPlots,TextBoxes],
 ], sizing_mode='fixed')
