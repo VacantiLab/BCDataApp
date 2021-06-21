@@ -25,6 +25,7 @@ def ImportData():
     subtype_colors = ['#E31A1C','#1F78B4','#A6CEE3','#FB9A99','#33A02C']
 
     # Reorder the columns for plotting
+    #     All basal columns, followed by all LumA columns, then all LumB colummns and so on in the order of the subtypes vector
     tumors = np.asarray(Annotation.loc[:,'Patient'])
     OrderedTumors = np.array([])
     for i in subtypes:

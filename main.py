@@ -22,7 +22,7 @@ from GetCorrelationSourceDicts import GetCorrelationSourceDicts
 from StylePlot import StylePlot
 from CreateSubtypeAverageDFs import CreateSubtypeAverageDFs
 from CreateSubtypeAveragePlotSources import CreateSubtypeAveragePlotSources
-#from CreateMetSubAverageDFs import CreateMetSubAverageDFs
+from CreateMetSubAverageDFs import CreateMetSubAverageDFs
 
 # Import the data
 [df_p,df_m,x_data,genes,subtypes,subtype_colors] = ImportData()
@@ -178,7 +178,9 @@ plot_subtype_m = StylePlot(plot_subtype_m,DotBar=True)
 
 # Line-Bar Plot for Metabolite Subtypes #######################################
 # create protein average and standard deviation data frames
-#[df_p_metsub_average,df_p_metsub_sd,df_m_metsub_average,df_m_metsub_sd] = CreateMetSubAverageDFs(df_p,df_m,subtypes)
+[x_data_met,df_p_metsub_average,df_p_metsub_sd,df_m_metsub_average,df_m_metsub_sd] = CreateMetSubAverageDFs(df_p,df_m)
+
+
 
 # Application Layout ###########################################################
 ProteinTitle = Div(text="Protein", style={'font-size': '100%', 'color': 'black'},align='center')
