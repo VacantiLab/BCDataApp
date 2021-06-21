@@ -20,6 +20,8 @@ from copy import copy
 from ImportData import ImportData
 from GetCorrelationSourceDicts import GetCorrelationSourceDicts
 from StylePlot import StylePlot
+from CreateSubtypeAverageDFs import CreateSubtypeAverageDFs
+from CreateSubtypeAveragePlotSources import CreateSubtypeAveragePlotSources
 
 # Import the data
 [df_p,df_m,x_data,genes,subtypes,subtype_colors] = ImportData()
@@ -58,8 +60,6 @@ def SpecifyBoxNumber3(attrname, old, new):
 def SpecifyBoxNumber4(attrname, old, new):
     global select_box_index
     select_box_index = 3
-
-SpecifyBoxNumberFunctionList = [SpecifyBoxNumber1,SpecifyBoxNumber2,SpecifyBoxNumber3,SpecifyBoxNumber4]
 
 # Define the function that updates the data in the figure object
 def update_prot_trace(attrname, old, new):
@@ -111,6 +111,8 @@ def update_prot_trace(attrname, old, new):
 ################################################################################
 ################################################################################
 
+SpecifyBoxNumberFunctionList = [SpecifyBoxNumber1,SpecifyBoxNumber2,SpecifyBoxNumber3,SpecifyBoxNumber4]
+
 # Create the lines that are displayed on the figure object
 source_list = [source1,source2,source3,source4]
 
@@ -133,86 +135,10 @@ plot_m = StylePlot(plot_m)
 
 # Line-Bar Plot for Subtypes ##########################################################
 # create protein average and standard deviation data frames
-df_p_subtype_average = pd.DataFrame(index=df_p.index, columns=subtypes)
-df_p_subtype_average.loc[:,'Basal'] = np.mean(df_p.iloc[:,0:9].T)
-df_p_subtype_average.loc[:,'LumA'] = np.mean(df_p.iloc[:,9:18].T)
-df_p_subtype_average.loc[:,'LumB'] = np.mean(df_p.iloc[:,18:27].T)
-df_p_subtype_average.loc[:,'Her2'] = np.mean(df_p.iloc[:,27:36].T)
-df_p_subtype_average.loc[:,'Norm'] = np.mean(df_p.iloc[:,36:45].T)
+[df_p_subtype_average,df_p_subtype_sd,df_m_subtype_average,df_m_subtype_sd] = CreateSubtypeAverageDFs(df_p,df_m,subtypes)
 
-df_p_subtype_sd = pd.DataFrame(index=df_p.index, columns=subtypes)
-df_p_subtype_sd.loc[:,'Basal'] = np.std(df_p.iloc[:,0:9].T)
-df_p_subtype_sd.loc[:,'LumA'] = np.std(df_p.iloc[:,9:18].T)
-df_p_subtype_sd.loc[:,'LumB'] = np.std(df_p.iloc[:,18:27].T)
-df_p_subtype_sd.loc[:,'Her2'] = np.std(df_p.iloc[:,27:36].T)
-df_p_subtype_sd.loc[:,'Norm'] = np.std(df_p.iloc[:,36:45].T)
-
-# create mRNA average and standard deviation data frames
-df_m_subtype_average = pd.DataFrame(index=df_m.index, columns=subtypes)
-df_m_subtype_average.loc[:,'Basal'] = np.mean(df_m.iloc[:,0:9].T)
-df_m_subtype_average.loc[:,'LumA'] = np.mean(df_m.iloc[:,9:18].T)
-df_m_subtype_average.loc[:,'LumB'] = np.mean(df_m.iloc[:,18:27].T)
-df_m_subtype_average.loc[:,'Her2'] = np.mean(df_m.iloc[:,27:36].T)
-df_m_subtype_average.loc[:,'Norm'] = np.mean(df_m.iloc[:,36:45].T)
-
-df_m_subtype_sd = pd.DataFrame(index=df_m.index, columns=subtypes)
-df_m_subtype_sd.loc[:,'Basal'] = np.std(df_m.iloc[:,0:9].T)
-df_m_subtype_sd.loc[:,'LumA'] = np.std(df_m.iloc[:,9:18].T)
-df_m_subtype_sd.loc[:,'LumB'] = np.std(df_m.iloc[:,18:27].T)
-df_m_subtype_sd.loc[:,'Her2'] = np.std(df_m.iloc[:,27:36].T)
-df_m_subtype_sd.loc[:,'Norm'] = np.std(df_m.iloc[:,36:45].T)
-
-# create an entry for a "blank" gene
-zero_data = np.zeros(len(subtypes))
-df_p_subtype_average.loc['blank',:] = zero_data
-df_p_subtype_sd.loc['blank',:] = zero_data
-df_m_subtype_average.loc['blank',:] = zero_data
-df_m_subtype_sd.loc['blank',:] = zero_data
-
-# Collect the data to be displayed initially
-# Initialize protein lists
-x_data_subtype_p = list()
-y_data_subtype_p = list()
-upper_p = list()
-lower_p = list()
-LegendGroup_p = list()
-# Initialize mRNA lists
-x_data_subtype_m = list()
-y_data_subtype_m = list()
-upper_m = list()
-lower_m = list()
-LegendGroup_m = list()
-# Populate protein and mRNA lists
-for subtype in subtypes:
-    for gene in gene_plot:
-        # Protein lists
-        x_data_subtype_p.append((gene,subtype))
-        y_data_subtype_p.append((df_p_subtype_average.loc[gene,subtype]))
-        upper_p.append(df_p_subtype_average.loc[gene,subtype] + df_p_subtype_sd.loc[gene,subtype])
-        lower_p.append(df_p_subtype_average.loc[gene,subtype] - df_p_subtype_sd.loc[gene,subtype])
-        LegendGroup_p.append(subtype)
-        # mRNA lists
-        x_data_subtype_m.append((gene,subtype))
-        y_data_subtype_m.append((df_m_subtype_average.loc[gene,subtype]))
-        upper_m.append(df_m_subtype_average.loc[gene,subtype] + df_m_subtype_sd.loc[gene,subtype])
-        lower_m.append(df_m_subtype_average.loc[gene,subtype] - df_m_subtype_sd.loc[gene,subtype])
-        LegendGroup_m.append(subtype)
-
-# Create the dictionaries for the protein and mRNA data and fill them with the initial values
-# Protein
-source_dict_subtype_p = {}
-source_dict_subtype_p['x'] = x_data_subtype_p
-source_dict_subtype_p['y'] = y_data_subtype_p
-source_dict_subtype_p['upper'] = upper_p
-source_dict_subtype_p['lower'] = lower_p
-source_dict_subtype_p['LegendGroup'] = LegendGroup_p
-# mRNA
-source_dict_subtype_m = {}
-source_dict_subtype_m['x'] = x_data_subtype_m
-source_dict_subtype_m['y'] = y_data_subtype_m
-source_dict_subtype_m['upper'] = upper_m
-source_dict_subtype_m['lower'] = lower_m
-source_dict_subtype_m['LegendGroup'] = LegendGroup_m
+# Create the subtype average plot sources
+[source_dict_subtype_p, source_dict_subtype_m] = CreateSubtypeAveragePlotSources(df_p_subtype_average,df_p_subtype_sd,df_m_subtype_average,df_m_subtype_sd,subtypes,gene_plot)
 
 # create the plot data source objects from the above dictionaries for each gene
 source_subtype_p = ColumnDataSource(data=source_dict_subtype_p)
@@ -249,7 +175,7 @@ plot_subtype_m.add_layout(W_m)
 plot_subtype_p = StylePlot(plot_subtype_p,DotBar=True)
 plot_subtype_m = StylePlot(plot_subtype_m,DotBar=True)
 
-# Create the layout
+# Application Layout ###########################################################
 ProteinTitle = Div(text="Protein", style={'font-size': '100%', 'color': 'black'},align='center')
 mRNATitle = Div(text="mRNA", style={'font-size': '100%', 'color': 'black'},align='center')
 MetHeatMap = Div(text="<img src='DataApp/static/met_heat_map1.png'>",width=350,width_policy='fixed')
