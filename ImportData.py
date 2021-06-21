@@ -12,7 +12,6 @@ def ImportData():
     data_p_file = 'data_p.txt'
     df_p = pd.read_csv('BCDataApp/DataFiles/' + data_p_file,sep='\t')
     df_p.set_index('Gene', inplace=True)
-    tumors = np.array(df_p.columns)
     genes = sorted(list(df_p.index))
 
     #import the mRNA data
@@ -26,6 +25,7 @@ def ImportData():
     subtype_colors = ['#E31A1C','#1F78B4','#A6CEE3','#FB9A99','#33A02C']
 
     # Reorder the columns for plotting
+    tumors = np.asarray(Annotation.loc[:,'Patient'])
     OrderedTumors = np.array([])
     for i in subtypes:
         SubtypeIndices = Annotation.loc[:,'Pam50'] == i
