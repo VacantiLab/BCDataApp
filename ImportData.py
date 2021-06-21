@@ -6,18 +6,18 @@ def ImportData():
 
     # Import the sample annotations
     file_name_read = 'group_key.txt'
-    Annotation = pd.read_csv('group_key.txt',sep='\t',header='infer')
+    Annotation = pd.read_csv('BCDataApp/DataFiles/group_key.txt',sep='\t',header='infer')
 
     #import the protein data
     data_p_file = 'data_p.txt'
-    df_p = pd.read_csv(data_p_file,sep='\t')
+    df_p = pd.read_csv('BCDataApp/DataFiles/' + data_p_file,sep='\t')
     df_p.set_index('Gene', inplace=True)
     tumors = np.array(df_p.columns)
     genes = sorted(list(df_p.index))
 
     #import the mRNA data
     data_m_file = 'data_m.txt'
-    df_m = pd.read_csv(data_m_file,sep='\t')
+    df_m = pd.read_csv('BCDataApp/DataFiles/' + data_m_file,sep='\t')
     df_m.set_index('Gene', inplace=True)
 
     # Specify subtypes and associated colors

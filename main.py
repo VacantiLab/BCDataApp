@@ -1,5 +1,5 @@
 # The call to this is:
-#     bokeh serve --show DataApp
+#     bokeh serve --show BCDataApp
 #     the call must be made in the terminal (not in python)
 
 # import python packages

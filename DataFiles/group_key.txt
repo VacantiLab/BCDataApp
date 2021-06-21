@@ -1,0 +1,46 @@
+Patient	pam50	Pam50	proteome_average	proteome_ward2	metabolites_measured	metabolites_core_prot	metabolites_prot_consensus	metabolites	proteome_consensus	pam50_consensus	vacanti_website
+OSL2U-0351	basal	Basal	Protein cluster 1 (basal)	predom basal	yes	none	none	none	none	none	no_consensus
+OSL2U-0383	luma	LumA	Protein cluster 4 (Normal-like mostly)	predom norm	yes	none	none	none	none	none	no_consensus
+OSL2U-0439	basal	Basal	Protein cluster 1 (basal)	predom basal	yes	none	none	none	none	none	no_consensus
+OSL2U-0512	basal	Basal	Protein cluster 1 (basal)	predom basal	yes	HP	CoTC1	none	CoTC1	basal	CoTC1
+OSL2U-0524	basal	Basal	Protein cluster 1 (basal)	predom basal	yes	HP	CoTC1	none	CoTC1	basal	CoTC1
+OSL2U-0352	luma	LumA	Protein cluster 3 (LumA mostly)	lum mix	yes	none	none	none	none	none	no_consensus
+OSL2U-0381	basal	Basal	Protein cluster 1 (basal)	predom basal	yes	none	none	none	none	none	no_consensus
+OSL2U-0392	luma	LumA	Protein cluster 3 (LumA mostly)	her2/lum b	yes	none	none	none	none	none	no_consensus
+OSL2U-0537	luma	LumA	Protein cluster 5 (Lum mix)	lum mix	yes	none	none	none	none	none	no_consensus
+OSL2U-0037	luma	LumA	Protein cluster 3 (LumA mostly)	lum a	yes	LP	CoTC3	none	CoTC3	luma	non_glycolytic
+OSL2U-0045	luma	LumA	Protein cluster 3 (LumA mostly)	lum a	yes	LP	CoTC3	none	CoTC3	luma	non_glycolytic
+OSL2U-0085	luma	LumA	Protein cluster 3 (LumA mostly)	lum a	yes	LP	CoTC3	none	CoTC3	luma	non_glycolytic
+OSL2U-0260	luma	LumA	Protein cluster 3 (LumA mostly)	lum a	yes	LP	CoTC3	none	CoTC3	luma	non_glycolytic
+OSL2U-0299	luma	LumA	Protein cluster 3 (LumA mostly)	lum a	yes	LP	CoTC3	none	CoTC3	luma	non_glycolytic
+OSL2U-0525	basal	Basal	Protein cluster 1 (basal)	predom basal	yes	HP	CoTC1	none	CoTC1	basal	CoTC1
+OSL2U-0536	basal	Basal	Protein cluster 1 (basal)	predom basal	no	none	CoTC2 - nomets	none - nomets	CoTC2	basal	no_mets
+OSL2U-0541	basal	Basal	Protein cluster 1 (basal)	predom basal	yes	HP	CoTC1	none	CoTC1	basal	CoTC1
+OSL2U-0542	basal	Basal	Protein cluster 1 (basal)	predom basal	no	none	CoTC2 - nomets	none - nomets	CoTC2	basal	no_mets
+OSL2U-0075	her2	Her2	Protein cluster 2 (LumB & HER2)	her2/lum b	yes	HP	CoTC6 - glycolytic	glyc	CoTC6	her2	glycolytic
+OSL2U-0382	her2	Her2	Protein cluster 2 (LumB & HER2)	her2/lum b	yes	HP	CoTC6	none	CoTC6	her2	with_CoTC1
+OSL2R-3059	her2	Her2	Protein cluster 4 (Normal-like mostly)	predom norm	yes	LP	CoTC5	none	CoTC5	her2	non_glycolytic
+OSL2U-0334	lumb	LumB	Protein cluster 2 (LumB & HER2)	predom basal	yes	none	none	glyc	none	none	no_consensus
+OSL2U-0407	lumb	LumB	Protein cluster 2 (LumB & HER2)	her2/lum b	yes	none	none	none	none	none	no_consensus
+OSL2U-0030	lumb	LumB	Protein cluster 2 (LumB & HER2)	her2/lum b	yes	HP	CoTC6 - glycolytic	glyc	CoTC6	lumb	glycolytic
+OSL2U-0368	norm	Norm	Protein cluster 4 (Normal-like mostly)	predom norm	yes	LP	CoTC5	none	CoTC5	norm	non_glycolytic
+OSL2U-0214	norm	Norm	Protein cluster 4 (Normal-like mostly)	predom norm	no	none	CoTC5 - nomets	none - nomets	CoTC5	norm	no_mets
+OSL2R-3045	norm	Norm	Protein cluster 4 (Normal-like mostly)	predom norm	yes	LP	CoTC5	none	CoTC5	norm	non_glycolytic
+OSL2U-0129	her2	Her2	Protein cluster 5 (Lum mix)	predom norm	yes	none	none	glyc	none	none	no_consensus
+OSL2U-0236	her2	Her2	Protein cluster 3 (LumA mostly)	lum mix	yes	LP	CoTC6	none	CoTC6	her2	non_glycolytic
+OSL2U-0194	her2	Her2	Protein cluster 2 (LumB & HER2)	her2/lum b	yes	HP	CoTC6 - glycolytic	glyc	CoTC6	her2	glycolytic
+OSL2U-0484	lumb	LumB	Protein cluster 2 (LumB & HER2)	her2/lum b	yes	LP	CoTC4	none	CoTC4	lumb	non_glycolytic
+OSL2U-0201	lumb	LumB	Protein cluster 3 (LumA mostly)	lum mix	yes	HP	CoTC6	none	CoTC6	lumb	with_CoTC1
+OSL2U-0289	lumb	LumB	Protein cluster 2 (LumB & HER2)	her2/lum b	yes	LP	CoTC4	none	CoTC4	lumb	non_glycolytic
+OSL2U-0135	norm	Norm	Protein cluster 4 (Normal-like mostly)	predom norm	yes	none	none	none	none	none	no_consensus
+OSL2R-3037	norm	Norm	Protein cluster 3 (LumA mostly)	lum mix	yes	none	none	none	none	none	no_consensus
+OSL2U-0555	norm	Norm	Protein cluster 5 (Lum mix)	predom norm	yes	none	none	glyc	none	none	no_consensus
+OSL2U-0329	her2	Her2	Protein cluster 2 (LumB & HER2)	her2/lum b	yes	HP	CoTC6 - glycolytic	glyc	CoTC6	her2	glycolytic
+OSL2U-0213	her2	Her2	Protein cluster 3 (LumA mostly)	lum mix	yes	LP	CoTC6	none	CoTC6	her2	non_glycolytic
+OSL2U-0218	her2	Her2	Protein cluster 2 (LumB & HER2)	her2/lum b	yes	HP	CoTC6 - glycolytic	glyc	CoTC6	her2	glycolytic
+OSL2U-0364	lumb	LumB	Protein cluster 2 (LumB & HER2)	her2/lum b	yes	LP	CoTC6	none	CoTC6	lumb	non_glycolytic
+OSL2R-3013	lumb	LumB	Protein cluster 3 (LumA mostly)	lum mix	yes	LP	CoTC6	none	CoTC6	lumb	non_glycolytic
+OSL2U-0219	lumb	LumB	Protein cluster 2 (LumB & HER2)	her2/lum b	yes	HP	CoTC6 - glycolytic	glyc	CoTC6	lumb	glycolytic
+OSL2U-0523	norm	Norm	Protein cluster 4 (Normal-like mostly)	predom norm	yes	none	none	none	none	none	no_consensus
+OSL2U-0429	norm	Norm	Protein cluster 4 (Normal-like mostly)	predom norm	yes	none	none	none	none	none	no_consensus
+OSL2U-0050	norm	Norm	Protein cluster 3 (LumA mostly)	predom norm	yes	none	none	none	none	none	no_consensus
