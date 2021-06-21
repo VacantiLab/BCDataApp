@@ -1,0 +1,11 @@
+- fix key errors when selecting a gene not in mRNA but in protein data set or vise-versa.
+-     have blank data displayed in the set that does not have the gene
+-     some genes, like GSE1, do not appear to be in either set. Why are they there?
+- the x-axis cannot have the same entry twice on the subtype plot.
+-     could be problematic with multiple blank entries
+
+Cleaning up code prior to adding metabolic subgroup protein plot
+- import the update_prot_trace functions.
+-     each function needs access to main.py's global variables
+-         I believe this can be accomplished by importing main in each function and accessing the variables as main.variable
+- set gene = new in the update_prot_trace functions
