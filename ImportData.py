@@ -21,8 +21,10 @@ def ImportData():
 
     # Specify subtypes and associated colors
     #     Subtypes have to agree with what is in the annotation file
-    subtypes = ['Basal','LumA','LumB','Her2','Norm']
-    subtype_colors = ['#E31A1C','#1F78B4','#A6CEE3','#FB9A99','#33A02C']
+    #subtypes = ['Basal','LumA','LumB','Her2','Norm']
+    #subtype_colors = ['#E31A1C','#1F78B4','#A6CEE3','#FB9A99','#33A02C']
+    subtypes = ['Basal','Her2','LumA','LumB','Norm']
+    subtype_colors = ['#E31A1C','#FB9A99','#1F78B4','#A6CEE3','#33A02C']
 
     # Reorder the columns for plotting
     #     All basal columns, followed by all LumA columns, then all LumB colummns and so on in the order of the subtypes vector
