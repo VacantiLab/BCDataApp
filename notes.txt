@@ -4,8 +4,5 @@
 - the x-axis cannot have the same entry twice on the subtype plot.
 -     could be problematic with multiple blank entries
 
-Cleaning up code prior to adding metabolic subgroup protein plot
-- import the update_prot_trace functions.
--     each function needs access to main.py's global variables
--         I believe this can be accomplished by importing main in each function and accessing the variables as main.variable
-- set gene = new in the update_prot_trace functions
+- Have the subtype plot start with a different set of genes
+- Have the dropdown menus all start with "Select"
