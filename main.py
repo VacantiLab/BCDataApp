@@ -127,10 +127,10 @@ def update_prot_trace(attrname, old, new):
 
     # Populate the x and y axis data lists
     # You cannot have the same thing twice on the x-axis
-    if gene not in gene_plot:
-        gene_plot[select_box_index] = gene
+    if gene not in gene_plot_metsub:
+        gene_plot_metsub[select_box_index] = gene
     for MetSubtype in MetSubtypes:
-        for gene_to_plot in gene_plot:
+        for gene_to_plot in gene_plot_metsub:
             # Subtype Plot
             # protein
             x_data_metsub_p.append((gene_to_plot,MetSubtype))
@@ -197,7 +197,8 @@ plot_subtype_m = StylePlot(plot_subtype_m,PlotID='Subtype')
 [x_data_met,df_p_metsub_average,df_p_metsub_sd,df_m_metsub_average,df_m_metsub_sd,MetSubtypes,metsub_colors] = CreateMetSubAverageDFs(df_p,df_m)
 
 # Create the subtype average plot sources
-[source_metsub_p, source_metsub_m] = CreateSubtypeAveragePlotSources(df_p_metsub_average,df_p_metsub_sd,df_m_metsub_average,df_m_metsub_sd,MetSubtypes,gene_plot)
+gene_plot_metsub = ['MKI67','PCNA','PLK1','BUB1']
+[source_metsub_p, source_metsub_m] = CreateSubtypeAveragePlotSources(df_p_metsub_average,df_p_metsub_sd,df_m_metsub_average,df_m_metsub_sd,MetSubtypes,gene_plot_metsub)
 
 # Add the lines and dots to the subtype plot objects
 [plot_metsub_p,plot_metsub_m] = MakeSubtypePlots(source_metsub_p,source_metsub_m,metsub_colors,MetSubtypes,PlotID='MetSubtype')
