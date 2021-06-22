@@ -12,12 +12,18 @@ def ImportData():
     data_p_file = 'data_p.txt'
     df_p = pd.read_csv('BCDataApp/DataFiles/' + data_p_file,sep='\t')
     df_p.set_index('Gene', inplace=True)
-    genes = sorted(list(df_p.index))
+    genes_p = sorted(list(df_p.index))
 
     #import the mRNA data
     data_m_file = 'data_m.txt'
     df_m = pd.read_csv('BCDataApp/DataFiles/' + data_m_file,sep='\t')
     df_m.set_index('Gene', inplace=True)
+    genes_m = sorted(list(df_m.index))
+
+    #Get a list of the unique genes that are in the protein or mRNA sets
+    genes = genes_p + genes_m
+    genes = np.unique(genes)
+    genes = np.ndarray.tolist(genes)
 
     # Specify subtypes and associated colors
     #     Subtypes have to agree with what is in the annotation file

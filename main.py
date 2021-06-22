@@ -231,13 +231,12 @@ plot_metsub_m = StylePlot(plot_metsub_m,PlotID='MetSubtype')
 
 # Application Layout ###########################################################
 DescriptiveTextCorrelation = "Abundances of proteins that are part of the same complex are tightly correlated across breast tumors. " \
-                             "This does not appear to be the case for the corresponing mRNA transcripts. " \
-                             "Protein and mRNA expression by breast tumor subtype is also plotted below."
+                             "This does not appear to be the case for the corresponing mRNA transcripts. "
 CorrelationTextDiv = Div(text=DescriptiveTextCorrelation,style={'font-size':'100%', 'color':'black','font-style':'italic'},width=700)
-DescriptiveTextSubtypes = "Breast cancer subtypes are defined by their gene expression profiles."
+DescriptiveTextSubtypes = "Breast cancer subtypes are defined by their gene expression profiles. " \
+                          "The plots are initialized above showing abundances of ER (ESR1), PR (PGR), HER2 (ERBB2), and KI-67 (MKI67); "\
+                          "four immunohistochemical markers commonly used in the clinic."
 SubtypesTextDiv = Div(text=DescriptiveTextSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'},width=700)
-ProteinTitle = Div(text="Protein", style={'font-size':'100%', 'color':'black','font-style':'italic'},align='center')
-mRNATitle = Div(text="mRNA", style={'font-size':'100%','color':'black','font-style':'italic'},align='center')
 MetHeatMap = Div(text="<img src='BCDataApp/static/met_heat_map1.png'>",width=350,width_policy='fixed')
 RowSpacer = Div(height=600)
 ColumnSpacer = Div(width=100)
@@ -246,6 +245,8 @@ DescriptiveTextMetSubtypes = "Tumors are clustered based on metabolite abundance
                   "Warburg tumors are defined by low glucose and high lactate and alanine, i.e. they are using glucose to produce lactate/alanine via glycolysis." \
                   "Warburg tumors appear to have higher protein and mRNA expression of proliferative markers."
 MetaboliteSubtypeText = Div(text=DescriptiveTextMetSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'},width=700)
+InstructionsText = "To view data for a different gene, click on a box and begin typing a HGNC gene symbol."
+InstructionsDiv = Div(text=InstructionsText,style={'font-size':'100%', 'color':'red','font-style':'italic'},width=200)
 
 TextBoxes = column(gene_text[0],gene_text[1],gene_text[2],gene_text[3])
 CorrelationPlots = row(plot_p,ColumnSpacer,plot_m)
@@ -253,9 +254,10 @@ SubtypePlots = row(plot_subtype_p,ColumnSpacer,plot_subtype_m)
 MetSubtypePlotRow = row(plot_metsub_p,RowSpacer,plot_metsub_m,MetHeatMap)
 
 ContentColumn = column(CorrelationPlots,CorrelationTextDiv,RowSpacer,SubtypePlots,SubtypesTextDiv,RowSpacer,MetSubtypePlotRow,MetaboliteSubtypeText)
+GeneColumn = column(TextBoxes,InstructionsDiv)
 
 l = layout([
-  [ContentColumn,ColumnSpacer,TextBoxes],
+  [ContentColumn,ColumnSpacer,GeneColumn],
 ], sizing_mode='fixed')
 
 # Create the bokeh server application
