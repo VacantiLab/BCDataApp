@@ -1,8 +1,7 @@
-- fix key errors when selecting a gene not in mRNA but in protein data set or vise-versa.
--     have blank data displayed in the set that does not have the gene
--     some genes, like GSE1, do not appear to be in either set. Why are they there?
-- the x-axis cannot have the same entry twice on the subtype plot.
--     could be problematic with multiple blank entries
+- fix spacing
+- fix metabolites clustering
+-    include all tumors
+-    cluster based on z-scores
+-    update heat map
+-    update group memberships
 
-- Have the subtype plot start with a different set of genes
-- Have the dropdown menus all start with "Select"
