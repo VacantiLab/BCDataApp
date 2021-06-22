@@ -92,6 +92,7 @@ def update_prot_trace(attrname, old, new):
         gene_plot[select_box_index] = gene
     for subtype in subtypes:
         for gene_to_plot in gene_plot:
+            # Subtype Plot
             # protein
             x_data_subtype_p.append((gene_to_plot,subtype))
             y_data_subtype_p.append((df_p_subtype_average.loc[gene_to_plot,subtype]))
@@ -110,6 +111,45 @@ def update_prot_trace(attrname, old, new):
     # mRNA
     plot_subtype_m.x_range.factors = x_data_subtype_m
     source_subtype_m.data = dict(x=x_data_subtype_m,y=y_data_subtype_m,upper=upper_m,lower=lower_m)
+
+    # MetSubtype bar-scatter plots
+    # initialize lists
+    # protein
+    x_data_metsub_p = list()
+    y_data_metsub_p = list()
+    upper_metsub_p = list()
+    lower_metsub_p = list()
+    # mRNA
+    x_data_metsub_m = list()
+    y_data_metsub_m = list()
+    upper_metsub_m = list()
+    lower_metsub_m = list()
+
+    # Populate the x and y axis data lists
+    # You cannot have the same thing twice on the x-axis
+    if gene not in gene_plot:
+        gene_plot[select_box_index] = gene
+    for MetSubtype in MetSubtypes:
+        for gene_to_plot in gene_plot:
+            # Subtype Plot
+            # protein
+            x_data_metsub_p.append((gene_to_plot,MetSubtype))
+            y_data_metsub_p.append((df_p_metsub_average.loc[gene_to_plot,MetSubtype]))
+            upper_metsub_p.append(df_p_metsub_average.loc[gene_to_plot,MetSubtype] + df_p_metsub_sd.loc[gene_to_plot,MetSubtype])
+            lower_metsub_p.append(df_p_metsub_average.loc[gene_to_plot,MetSubtype] - df_p_metsub_sd.loc[gene_to_plot,MetSubtype])
+            # mRNA
+            x_data_metsub_m.append((gene_to_plot,MetSubtype))
+            y_data_metsub_m.append((df_m_metsub_average.loc[gene_to_plot,MetSubtype]))
+            upper_metsub_m.append(df_m_metsub_average.loc[gene_to_plot,MetSubtype] + df_m_metsub_sd.loc[gene_to_plot,MetSubtype])
+            lower_metsub_m.append(df_m_metsub_average.loc[gene_to_plot,MetSubtype] - df_m_metsub_sd.loc[gene_to_plot,MetSubtype])
+
+    # update the plot data
+    # protein
+    plot_metsub_p.x_range.factors = x_data_metsub_p
+    source_metsub_p.data = dict(x=x_data_metsub_p,y=y_data_metsub_p,upper=upper_metsub_p,lower=lower_metsub_p)
+    # mRNA
+    plot_metsub_m.x_range.factors = x_data_metsub_m
+    source_metsub_m.data = dict(x=x_data_metsub_m,y=y_data_metsub_m,upper=upper_metsub_m,lower=lower_metsub_m)
 ################################################################################
 ################################################################################
 
@@ -136,6 +176,7 @@ plot_p = StylePlot(plot_p)
 plot_m = StylePlot(plot_m)
 
 # Line-Bar Plot for Subtypes ##########################################################
+#######################################################################################
 # create protein average and standard deviation data frames
 [df_p_subtype_average,df_p_subtype_sd,df_m_subtype_average,df_m_subtype_sd] = CreateSubtypeAverageDFs(df_p,df_m,subtypes)
 
@@ -143,42 +184,56 @@ plot_m = StylePlot(plot_m)
 [source_subtype_p, source_subtype_m] = CreateSubtypeAveragePlotSources(df_p_subtype_average,df_p_subtype_sd,df_m_subtype_average,df_m_subtype_sd,subtypes,gene_plot)
 
 # Add the lines and dots to the subtype plot objects
-[plot_subtype_p,plot_subtype_m] = MakeSubtypePlots(source_subtype_p,source_subtype_m,subtype_colors,subtypes)
+[plot_subtype_p,plot_subtype_m] = MakeSubtypePlots(source_subtype_p,source_subtype_m,subtype_colors,subtypes,PlotID='Subtype')
 
 # set aesthetic values
-plot_subtype_p = StylePlot(plot_subtype_p,DotBar=True)
-plot_subtype_m = StylePlot(plot_subtype_m,DotBar=True)
+plot_subtype_p = StylePlot(plot_subtype_p,PlotID='Subtype')
+plot_subtype_m = StylePlot(plot_subtype_m,PlotID='Subtype')
 
 
-# Line-Bar Plot for Metabolite Subtypes #######################################
+# Line-Bar Plot for Metabolite Subtypes ###############################################
+#######################################################################################
 # create protein average and standard deviation data frames
-[x_data_met,df_p_metsub_average,df_p_metsub_sd,df_m_metsub_average,df_m_metsub_sd] = CreateMetSubAverageDFs(df_p,df_m)
+[x_data_met,df_p_metsub_average,df_p_metsub_sd,df_m_metsub_average,df_m_metsub_sd,MetSubtypes,metsub_colors] = CreateMetSubAverageDFs(df_p,df_m)
 
 # Create the subtype average plot sources
-MetSubtypes = ['LP','HP']
 [source_metsub_p, source_metsub_m] = CreateSubtypeAveragePlotSources(df_p_metsub_average,df_p_metsub_sd,df_m_metsub_average,df_m_metsub_sd,MetSubtypes,gene_plot)
 
 # Add the lines and dots to the subtype plot objects
-metsub_colors = ['red','blue']
-[plot_metsub_p,plot_metsub_m] = MakeSubtypePlots(source_metsub_p,source_metsub_m,metsub_colors,MetSubtypes)
+[plot_metsub_p,plot_metsub_m] = MakeSubtypePlots(source_metsub_p,source_metsub_m,metsub_colors,MetSubtypes,PlotID='MetSubtype')
 
 # set aesthetic values
-plot_metsub_p = StylePlot(plot_metsub_p,DotBar=True)
-plot_metsub_m = StylePlot(plot_metsub_m,DotBar=True)
+plot_metsub_p = StylePlot(plot_metsub_p,PlotID='MetSubtype')
+plot_metsub_m = StylePlot(plot_metsub_m,PlotID='MetSubtype')
 
 
 # Application Layout ###########################################################
-ProteinTitle = Div(text="Protein", style={'font-size': '100%', 'color': 'black'},align='center')
-mRNATitle = Div(text="mRNA", style={'font-size': '100%', 'color': 'black'},align='center')
-MetHeatMap = Div(text="<img src='DataApp/static/met_heat_map1.png'>",width=350,width_policy='fixed')
+DescriptiveTextCorrelation = "Abundances of proteins that are part of the same complex appear to correlate tightly across breast tumors. " \
+                             "This does not appear to be the case for the corresponing mRNA transcripts. " \
+                             "Protein and mRNA expression by breast tumor subtype is also plotted below."
+CorrelationTextDiv = Div(text=DescriptiveTextCorrelation,width=700)
+ProteinTitle = Div(text="Protein", style={'font-size':'100%', 'color':'black','font-style':'italic'},align='center')
+mRNATitle = Div(text="mRNA", style={'font-size':'100%','color':'black','font-style':'italic'},align='center')
+MetHeatMap = Div(text="<img src='BCDataApp/static/met_heat_map1.png'>",width=350,width_policy='fixed')
 RowSpacer = Div(height=100)
 ColumnSpacer = Div(width=100)
+DescriptiveTextMetSubtypes = "Tumors are clustered based on metabolite abundances (right) resulting in a groupings designated as \"Non Warburg\" and \"Warburg\". "\
+                  "Non Warburg tumors are defined by high glucose and low lactate and alanine, i.e. they are not using glucose to produce lactate/alanine via glycolysis. "\
+                  "Warburg tumors are defined by low glucose and high lactate and alanine, i.e. they are using glucose to produce lactate/alanine via glycolysis." \
+                  "Warburg tumors appear to have higher protein and mRNA expression of proliferative markers."
+MetaboliteSubtypeText = Div(text=DescriptiveTextMetSubtypes,width=700)
 
 TextBoxes = column(RowSpacer,gene_text[0],gene_text[1],gene_text[2],gene_text[3])
-ProteinPlots = column(ProteinTitle,plot_p,RowSpacer,plot_subtype_p,RowSpacer,MetHeatMap)
-mRNAPlots = column(mRNATitle,plot_m,RowSpacer,plot_subtype_m,RowSpacer,plot_metsub_p,RowSpacer,plot_metsub_m)
+ProteinPlots = column(ProteinTitle,plot_p,RowSpacer,plot_subtype_p,RowSpacer)
+MetSubtypePlotRow = row(plot_metsub_p,RowSpacer,plot_metsub_m,MetHeatMap)
+mRNAPlots = column(mRNATitle,plot_m,RowSpacer,plot_subtype_m,RowSpacer)
+
 l = layout([
+  [CorrelationTextDiv],
   [ProteinPlots,ColumnSpacer,mRNAPlots,TextBoxes],
+  [MetaboliteSubtypeText],
+  [RowSpacer],
+  [MetSubtypePlotRow],
 ], sizing_mode='fixed')
 
 # Create the bokeh server application

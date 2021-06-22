@@ -1,4 +1,4 @@
-def StylePlot(plot,DotBar=False):
+def StylePlot(plot,PlotID='NA'):
 
     from bokeh.plotting import figure
 
@@ -22,8 +22,11 @@ def StylePlot(plot,DotBar=False):
     plot.legend.label_standoff = 3
     plot.legend.glyph_width = 10
 
-    if DotBar == True:
+    if (PlotID == 'Subtype') | (PlotID == 'MetSubtype'):
         plot.xaxis.separator_line_color = None
         plot.legend.label_standoff = 0
+
+    if PlotID == 'MetSubtype':
+        plot.xaxis.group_label_orientation = 1.57079632679 #pi/2
 
     return(plot)

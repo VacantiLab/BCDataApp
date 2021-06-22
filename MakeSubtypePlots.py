@@ -1,4 +1,4 @@
-def MakeSubtypePlots(source_subtype_p,source_subtype_m,subtype_colors,subtypes):
+def MakeSubtypePlots(source_subtype_p,source_subtype_m,subtype_colors,subtypes,PlotID):
     # import necessary bokeh packages
     from bokeh.io import curdoc
     from bokeh.layouts import column, row, layout, widgetbox
@@ -8,9 +8,17 @@ def MakeSubtypePlots(source_subtype_p,source_subtype_m,subtype_colors,subtypes):
     from bokeh.events import DoubleTap
     from bokeh.transform import factor_cmap
 
+    from pdb import set_trace
+
+    SubtypePlotWidth = 350
+    SubtypePlotHeight = 200
+    if PlotID == 'MetSubtype':
+        SubtypePlotWidth = 200
+        SubtypePlotHeight = 288
+
     # In itialize the figure object
-    plot_subtype_p=figure(x_range=FactorRange(*source_subtype_p.data['x']), title='', x_axis_label='',y_axis_label='protein z-score',plot_width=350,plot_height=200)
-    plot_subtype_m=figure(x_range=FactorRange(*source_subtype_m.data['x']), title='', x_axis_label='',y_axis_label='mRNA z-score',plot_width=350,plot_height=200)
+    plot_subtype_p=figure(x_range=FactorRange(*source_subtype_p.data['x']), title='', x_axis_label='',y_axis_label='protein z-score',plot_width=SubtypePlotWidth,plot_height=SubtypePlotHeight)
+    plot_subtype_m=figure(x_range=FactorRange(*source_subtype_m.data['x']), title='', x_axis_label='',y_axis_label='mRNA z-score',plot_width=SubtypePlotWidth,plot_height=SubtypePlotHeight)
     #     x_range specifies that the data is categorical
 
     # make protein plots
