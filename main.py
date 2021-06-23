@@ -232,19 +232,19 @@ plot_metsub_m = StylePlot(plot_metsub_m,PlotID='MetSubtype')
 # Application Layout ###########################################################
 DescriptiveTextCorrelation = "Abundances of proteins that are part of the same complex are tightly correlated across breast tumors. " \
                              "This does not appear to be the case for the corresponing mRNA transcripts. "
-CorrelationTextDiv = Div(text=DescriptiveTextCorrelation,style={'font-size':'100%', 'color':'black','font-style':'italic'},width=700)
+CorrelationTextDiv = column(Div(text=DescriptiveTextCorrelation,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=700)
 DescriptiveTextSubtypes = "Breast cancer subtypes are defined by their gene expression profiles. " \
                           "The plots are initialized above showing abundances of ER (ESR1), PR (PGR), HER2 (ERBB2), and KI-67 (MKI67); "\
                           "four immunohistochemical markers commonly used in the clinic."
-SubtypesTextDiv = Div(text=DescriptiveTextSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'},width=700)
-MetHeatMap = Div(text="<img src='BCDataApp/static/met_heat_map1.png'>",width=350,width_policy='fixed')
-RowSpacer = Div(height=600)
-ColumnSpacer = Div(width=100)
+SubtypesTextDiv = column(Div(text=DescriptiveTextSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=700)
+MetHeatMap = column(Div(text="<img src='BCDataApp/static/met_heat_map3.png'>",width=350,width_policy='fixed'),width=400)
+RowSpacer = Div(height=100)
+ColumnSpacer = Div(width=50)
 DescriptiveTextMetSubtypes = "Tumors are clustered based on metabolite abundances (right) resulting in a groupings designated as \"Non Warburg\" and \"Warburg\". "\
                   "Non Warburg tumors are defined by high glucose and low lactate and alanine, i.e. they are not using glucose to produce lactate/alanine via glycolysis. "\
                   "Warburg tumors are defined by low glucose and high lactate and alanine, i.e. they are using glucose to produce lactate/alanine via glycolysis." \
                   "Warburg tumors appear to have higher protein and mRNA expression of proliferative markers."
-MetaboliteSubtypeText = Div(text=DescriptiveTextMetSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'},width=700)
+MetaboliteSubtypeText = column(Div(text=DescriptiveTextMetSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=400)
 InstructionsText = "To view data for a different gene, click on a box and begin typing a HGNC gene symbol."
 InstructionsDiv = Div(text=InstructionsText,style={'font-size':'100%', 'color':'red','font-style':'italic'},width=200)
 

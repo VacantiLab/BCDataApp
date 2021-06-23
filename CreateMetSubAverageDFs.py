@@ -4,11 +4,12 @@ def CreateMetSubAverageDFs(df_p,df_m):
     from pdb import set_trace
 
     tumors = np.array(df_p.columns)
-    SubtypeCategory = 'vacanti_website_2'
-    MetSubtypes = ['Non Warburg','Warburg']
+    SubtypeCategory = 'vacanti_website_4'
+    MetSubtypes = ['Glycolytic','Non Glycolytic']
     #     The Legend is presented in alphabetical order so these had to be named in a way to present the order as desired
-    metsub_colors = ['#51B20E','#FF8C00']
-    SubtypeSplitIndex = 14
+    metsub_colors = ['#FF8C00','#51B20E']
+    SubtypeSplitIndex = 6
+    N_Tumors = 15
 
     file_name_read = 'group_key.txt'
     Annotation = pd.read_csv('BCDataApp/DataFiles/group_key.txt',sep='\t',header='infer')
@@ -34,20 +35,20 @@ def CreateMetSubAverageDFs(df_p,df_m):
     # create protein average and standard deviation data frames
     df_p_metsub_average = pd.DataFrame(index=df_p_met.index, columns=MetSubtypes)
     df_p_metsub_average.loc[:,MetSubtypes[0]] = np.mean(df_p_met.iloc[:,0:SubtypeSplitIndex].T)
-    df_p_metsub_average.loc[:,MetSubtypes[1]] = np.mean(df_p_met.iloc[:,SubtypeSplitIndex:20].T)
+    df_p_metsub_average.loc[:,MetSubtypes[1]] = np.mean(df_p_met.iloc[:,SubtypeSplitIndex:N_Tumors].T)
 
     df_p_metsub_sd = pd.DataFrame(index=df_p_met.index, columns=MetSubtypes)
     df_p_metsub_sd.loc[:,MetSubtypes[0]] = np.std(df_p_met.iloc[:,0:SubtypeSplitIndex].T)
-    df_p_metsub_sd.loc[:,MetSubtypes[1]] = np.std(df_p_met.iloc[:,SubtypeSplitIndex:20].T)
+    df_p_metsub_sd.loc[:,MetSubtypes[1]] = np.std(df_p_met.iloc[:,SubtypeSplitIndex:N_Tumors].T)
 
     # create mRNA average and standard deviation data frames
     df_m_metsub_average = pd.DataFrame(index=df_m_met.index, columns=MetSubtypes)
     df_m_metsub_average.loc[:,MetSubtypes[0]] = np.mean(df_m_met.iloc[:,0:SubtypeSplitIndex].T)
-    df_m_metsub_average.loc[:,MetSubtypes[1]] = np.mean(df_m_met.iloc[:,SubtypeSplitIndex:20].T)
+    df_m_metsub_average.loc[:,MetSubtypes[1]] = np.mean(df_m_met.iloc[:,SubtypeSplitIndex:N_Tumors].T)
 
     df_m_metsub_sd = pd.DataFrame(index=df_m_met.index, columns=MetSubtypes)
     df_m_metsub_sd.loc[:,MetSubtypes[0]] = np.std(df_m_met.iloc[:,0:SubtypeSplitIndex].T)
-    df_m_metsub_sd.loc[:,MetSubtypes[1]] = np.std(df_m_met.iloc[:,SubtypeSplitIndex:20].T)
+    df_m_metsub_sd.loc[:,MetSubtypes[1]] = np.std(df_m_met.iloc[:,SubtypeSplitIndex:N_Tumors].T)
 
     # create an entry for a "blank" gene
     zero_data = np.zeros(len(MetSubtypes))
