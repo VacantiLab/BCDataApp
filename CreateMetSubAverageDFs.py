@@ -32,23 +32,23 @@ def CreateMetSubAverageDFs(df_p,df_m):
             Subtype_Assignment = Subtype_Assignment.to_string().split()[1]
             x_data_met.append((Subtype_Assignment,OrderedTumors[i]))
 
-    # create protein average and standard deviation data frames
+    # create protein average and standard error data frames
     df_p_metsub_average = pd.DataFrame(index=df_p_met.index, columns=MetSubtypes)
     df_p_metsub_average.loc[:,MetSubtypes[0]] = np.mean(df_p_met.iloc[:,0:SubtypeSplitIndex].T)
     df_p_metsub_average.loc[:,MetSubtypes[1]] = np.mean(df_p_met.iloc[:,SubtypeSplitIndex:N_Tumors].T)
 
     df_p_metsub_sd = pd.DataFrame(index=df_p_met.index, columns=MetSubtypes)
-    df_p_metsub_sd.loc[:,MetSubtypes[0]] = np.std(df_p_met.iloc[:,0:SubtypeSplitIndex].T)
-    df_p_metsub_sd.loc[:,MetSubtypes[1]] = np.std(df_p_met.iloc[:,SubtypeSplitIndex:N_Tumors].T)
+    df_p_metsub_sd.loc[:,MetSubtypes[0]] = np.std(df_p_met.iloc[:,0:SubtypeSplitIndex].T)/SubtypeSplitIndex**0.5
+    df_p_metsub_sd.loc[:,MetSubtypes[1]] = np.std(df_p_met.iloc[:,SubtypeSplitIndex:N_Tumors].T)/(N_Tumors-SubtypeSplitIndex)**0.5
 
-    # create mRNA average and standard deviation data frames
+    # create mRNA average and standard error data frames
     df_m_metsub_average = pd.DataFrame(index=df_m_met.index, columns=MetSubtypes)
     df_m_metsub_average.loc[:,MetSubtypes[0]] = np.mean(df_m_met.iloc[:,0:SubtypeSplitIndex].T)
     df_m_metsub_average.loc[:,MetSubtypes[1]] = np.mean(df_m_met.iloc[:,SubtypeSplitIndex:N_Tumors].T)
 
     df_m_metsub_sd = pd.DataFrame(index=df_m_met.index, columns=MetSubtypes)
-    df_m_metsub_sd.loc[:,MetSubtypes[0]] = np.std(df_m_met.iloc[:,0:SubtypeSplitIndex].T)
-    df_m_metsub_sd.loc[:,MetSubtypes[1]] = np.std(df_m_met.iloc[:,SubtypeSplitIndex:N_Tumors].T)
+    df_m_metsub_sd.loc[:,MetSubtypes[0]] = np.std(df_m_met.iloc[:,0:SubtypeSplitIndex].T)/SubtypeSplitIndex**0.5
+    df_m_metsub_sd.loc[:,MetSubtypes[1]] = np.std(df_m_met.iloc[:,SubtypeSplitIndex:N_Tumors].T)/(N_Tumors-SubtypeSplitIndex)**0.5
 
     # create an entry for a "blank" gene
     zero_data = np.zeros(len(MetSubtypes))

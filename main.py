@@ -9,7 +9,7 @@ from pdb import set_trace
 
 # import necessary bokeh packages
 from bokeh.io import curdoc
-from bokeh.layouts import column, row, layout, widgetbox
+from bokeh.layouts import column, row, layout, widgetbox, Spacer
 from bokeh.models import ColumnDataSource, Slider, TextInput, FactorRange, Select, Whisker
 from bokeh.models.widgets.markups import Div
 from bokeh.plotting import figure, output_file
@@ -235,15 +235,17 @@ DescriptiveTextCorrelation = "Abundances of proteins that are part of the same c
 CorrelationTextDiv = column(Div(text=DescriptiveTextCorrelation,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=700)
 DescriptiveTextSubtypes = "Breast cancer subtypes are defined by their gene expression profiles. " \
                           "The plots are initialized above showing abundances of ER (ESR1), PR (PGR), HER2 (ERBB2), and KI-67 (MKI67); "\
-                          "four immunohistochemical markers commonly used in the clinic."
+                          "four immunohistochemical markers commonly used in the clinic. "\
+                          "Valeus are means +/- standard error of the mean."
 SubtypesTextDiv = column(Div(text=DescriptiveTextSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=700)
 MetHeatMap = column(Div(text="<img src='BCDataApp/static/met_heat_map3.png'>",width=350,width_policy='fixed'),width=400)
-RowSpacer = Div(height=100)
-ColumnSpacer = Div(width=50)
+RowSpacer = Spacer(height=30)
+ColumnSpacer = Spacer(width=20)
 DescriptiveTextMetSubtypes = "Tumors are clustered based on metabolite abundances (right) resulting in a groupings designated as \"Non Warburg\" and \"Warburg\". "\
                   "Non Warburg tumors are defined by high glucose and low lactate and alanine, i.e. they are not using glucose to produce lactate/alanine via glycolysis. "\
                   "Warburg tumors are defined by low glucose and high lactate and alanine, i.e. they are using glucose to produce lactate/alanine via glycolysis." \
-                  "Warburg tumors appear to have higher protein and mRNA expression of proliferative markers."
+                  "Warburg tumors appear to have higher protein and mRNA expression of proliferative markers. "\
+                  "Valeus are means +/- standard error of the mean."
 MetaboliteSubtypeText = column(Div(text=DescriptiveTextMetSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=400)
 InstructionsText = "To view data for a different gene, click on a box and begin typing a HGNC gene symbol."
 InstructionsDiv = Div(text=InstructionsText,style={'font-size':'100%', 'color':'red','font-style':'italic'},width=200)
@@ -251,13 +253,13 @@ InstructionsDiv = Div(text=InstructionsText,style={'font-size':'100%', 'color':'
 TextBoxes = column(gene_text[0],gene_text[1],gene_text[2],gene_text[3])
 CorrelationPlots = row(plot_p,ColumnSpacer,plot_m)
 SubtypePlots = row(plot_subtype_p,ColumnSpacer,plot_subtype_m)
-MetSubtypePlotRow = row(plot_metsub_p,RowSpacer,plot_metsub_m,MetHeatMap)
+MetSubtypePlotRow = row(plot_metsub_p,ColumnSpacer,plot_metsub_m,MetHeatMap)
 
 ContentColumn = column(CorrelationPlots,CorrelationTextDiv,RowSpacer,SubtypePlots,SubtypesTextDiv,RowSpacer,MetSubtypePlotRow,MetaboliteSubtypeText)
 GeneColumn = column(TextBoxes,InstructionsDiv)
 
 l = layout([
-  [ContentColumn,ColumnSpacer,GeneColumn],
+  [ContentColumn,GeneColumn],
 ], sizing_mode='fixed')
 
 # Create the bokeh server application

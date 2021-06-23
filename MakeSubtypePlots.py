@@ -13,7 +13,7 @@ def MakeSubtypePlots(source_subtype_p,source_subtype_m,subtype_colors,subtypes,P
     SubtypePlotWidth = 350
     SubtypePlotHeight = 200
     if PlotID == 'MetSubtype':
-        SubtypePlotWidth = 200
+        SubtypePlotWidth = 220
         SubtypePlotHeight = 288
 
     # In itialize the figure object

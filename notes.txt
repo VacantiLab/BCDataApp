@@ -1,7 +1,4 @@
 - fix spacing
-- fix metabolites clustering
--    include all tumors
--    cluster based on z-scores
--    update heat map
--    update group memberships
+- dates to gene names
+- SEM for dot plots
 
