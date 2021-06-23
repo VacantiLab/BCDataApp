@@ -7,7 +7,7 @@ def CreateMetSubAverageDFs(df_p,df_m):
     SubtypeCategory = 'vacanti_website_4'
     MetSubtypes = ['Glycolytic','Non Glycolytic']
     #     The Legend is presented in alphabetical order so these had to be named in a way to present the order as desired
-    metsub_colors = ['#FF8C00','#51B20E']
+    metsub_colors = ['#FF8C00','#8D7ED4']
     SubtypeSplitIndex = 6
     N_Tumors = 15
 
