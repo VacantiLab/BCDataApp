@@ -11,12 +11,14 @@ def ImportData():
     #import the protein data
     data_p_file = 'data_p.txt'
     df_p = pd.read_csv('BCDataApp/DataFiles/' + data_p_file,sep='\t')
+    df_p = ConvertDates(df_p) # Some gene symbols had been converted to dates at one point by excel. Convert them back.
     df_p.set_index('Gene', inplace=True)
     genes_p = sorted(list(df_p.index))
 
     #import the mRNA data
     data_m_file = 'data_m.txt'
     df_m = pd.read_csv('BCDataApp/DataFiles/' + data_m_file,sep='\t')
+    df_m = ConvertDates(df_m) # Some gene symbols had been converted to dates at one point by excel. Convert them back.
     df_m.set_index('Gene', inplace=True)
     genes_m = sorted(list(df_m.index))
 
@@ -52,3 +54,29 @@ def ImportData():
             x_data.append((PAM50_Assignment,tumors[i]))
 
     return(df_p,df_m,x_data,genes,subtypes,subtype_colors)
+
+################################################################################
+
+def ConvertDates(DF):
+    import pandas as pd
+    from pdb import set_trace
+    import numpy as np
+
+    # Import the date-to-gene conversion file
+    data_converstion_file = 'GeneDateConverstions.txt'
+    df_conv = pd.read_csv('BCDataApp/DataFiles/' + data_converstion_file, sep='\t')
+    df_conv.set_index('Date', inplace=True, drop=False)
+
+
+    Dates = np.asarray(df_conv['Date'])
+    Genes = np.asarray(DF['Gene'])
+
+    for date in Dates:
+        if date in Genes:
+            DateIndex = np.where(Genes == date)[0]
+            NewSymbol = df_conv.loc[date,'Current']
+            Genes[DateIndex] = NewSymbol
+
+    DF['Gene'] = Genes
+
+    return(DF)

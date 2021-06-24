@@ -244,8 +244,9 @@ ColumnSpacer = Spacer(width=20)
 DescriptiveTextMetSubtypes = "Tumors are clustered based on metabolite abundances (left) resulting in a groupings designated as \"Glycolytic\" and \"Non Glycolytic\". "\
                   "Glycolytic tumors are defined by low glucose and high lactate and alanine, i.e. they are using glucose to produce lactate/alanine via glycolysis. " \
                   "Non Glycolytic tumors are defined by high glucose and low lactate and alanine, i.e. they are not using glucose to produce lactate/alanine via glycolysis. "\
-                  "Glycolytic tumors appear to have higher protein and mRNA expression of proliferative markers. "\
-                  "Valeus are means +/- standard error of the mean (SEM). "\
+                  "Plots are initialized to display markers of proliferation, " \
+                  "of which, Glycolytic tumors appear to have higher protein and mRNA expression. "\
+                  "Values are means +/- standard error of the mean (SEM). "\
                   "If data is not available for a gene, values will appear as all zeros with no SEMs."
 MetaboliteSubtypeText = column(Div(text=DescriptiveTextMetSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=850)
 InstructionsText = "To view data for a different gene, click on a box and begin typing a HGNC gene symbol."
