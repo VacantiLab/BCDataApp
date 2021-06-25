@@ -257,7 +257,7 @@ HeatMapWidth = int(HeatMapHeight * 1120/900)
 MetHeatMap = figure(x_range=(0,10), y_range=(0,10))
 MetHeatMap.frame_height = HeatMapHeight
 MetHeatMap.frame_width = HeatMapWidth
-MetHeatMap.image_url(x=0, y=10, w=10, h=10, url=["BCDataApp/static/met_heat_map3.png"])
+MetHeatMap.image_url(x=0, y=10, w=10, h=10, url=["http://localhost:5006/BCDataApp/static/met_heat_map3.png"])
 MetHeatMap = StylePlot(MetHeatMap,PlotID='MetHeatMap')
 
 TextBoxes = column(gene_text[0],gene_text[1],gene_text[2],gene_text[3])
