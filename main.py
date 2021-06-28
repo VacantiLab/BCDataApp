@@ -261,14 +261,14 @@ MetHeatMap.image_url(x=0, y=10, w=10, h=10, url=["http://localhost:5006/BCDataAp
 MetHeatMap = StylePlot(MetHeatMap,PlotID='MetHeatMap')
 
 TextBoxes = column(gene_text[0],gene_text[1],gene_text[2],gene_text[3])
-CorrelationPlots = row(plot_p,ColumnSpacer,plot_m)
-SubtypePlots = row(plot_subtype_p,ColumnSpacer,plot_subtype_m)
-MetSubtypePlotRow = row(MetHeatMap,ColumnSpacer,plot_metsub_p,ColumnSpacer,plot_metsub_m)
+CorrelationPlots = row(plot_p,plot_m)
+SubtypePlots = row(plot_subtype_p,plot_subtype_m)
+MetSubtypePlotRow = row(MetHeatMap,plot_metsub_p,plot_metsub_m)
 
-ContentColumn = column(CorrelationPlots,CorrelationTextDiv,RowSpacer,SubtypePlots,SubtypesTextDiv)
+ContentColumn = column(CorrelationPlots,CorrelationTextDiv,SubtypePlots,SubtypesTextDiv)
 GeneColumn = column(TextBoxes,InstructionsDiv)
-ContentRow = row(ContentColumn,ColumnSpacer,GeneColumn)
-MetSubtypePlotRow = row(MetHeatMap,ColumnSpacer,plot_metsub_p,ColumnSpacer,plot_metsub_m)
+ContentRow = row(ContentColumn,GeneColumn)
+MetSubtypePlotRow = row(MetHeatMap,plot_metsub_p,plot_metsub_m)
 MetaboliteColumn = column(MetSubtypePlotRow,MetaboliteSubtypeText)
 
 
