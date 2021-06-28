@@ -239,8 +239,12 @@ DescriptiveTextSubtypes = "Breast cancer subtypes are defined by their gene expr
                           "Valeus are means +/- standard error of the mean (SEM). "\
                           "If data is not available for a gene, values will appear as all zeros with no SEMs."
 SubtypesTextDiv = column(Div(text=DescriptiveTextSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=730)
-RowSpacer = Spacer(height=30)
-ColumnSpacer = Spacer(width=20)
+RowSpacer1 = Spacer(height=30)
+RowSpacer2 = Spacer(height=30)
+ColumnSpacer1 = Spacer(width=20)
+ColumnSpacer2 = Spacer(width=20)
+ColumnSpacer3 = Spacer(width=20)
+ColumnSpacer4 = Spacer(width=20)
 DescriptiveTextMetSubtypes = "Tumors are clustered based on metabolite abundances (left) resulting in a groupings designated as \"Glycolytic\" and \"Non Glycolytic\". "\
                   "Glycolytic tumors are defined by low glucose and high lactate and alanine, i.e. they are using glucose to produce lactate/alanine via glycolysis. " \
                   "Non Glycolytic tumors are defined by high glucose and low lactate and alanine, i.e. they are not using glucose to produce lactate/alanine via glycolysis. "\
@@ -261,20 +265,19 @@ MetHeatMap.image_url(x=0, y=10, w=10, h=10, url=["http://localhost:5006/BCDataAp
 MetHeatMap = StylePlot(MetHeatMap,PlotID='MetHeatMap')
 
 TextBoxes = column(gene_text[0],gene_text[1],gene_text[2],gene_text[3])
-CorrelationPlots = row(plot_p,plot_m)
-SubtypePlots = row(plot_subtype_p,plot_subtype_m)
-MetSubtypePlotRow = row(MetHeatMap,plot_metsub_p,plot_metsub_m)
+CorrelationPlots = row(plot_p,ColumnSpacer1,plot_m)
+SubtypePlots = row(plot_subtype_p,ColumnSpacer2,plot_subtype_m)
+MetSubtypePlotRow = row(MetHeatMap,ColumnSpacer3,plot_metsub_p,ColumnSpacer4,plot_metsub_m)
 
-ContentColumn = column(CorrelationPlots,CorrelationTextDiv,SubtypePlots,SubtypesTextDiv)
+ContentColumn = column(CorrelationPlots,CorrelationTextDiv,RowSpacer1,SubtypePlots,SubtypesTextDiv)
 GeneColumn = column(TextBoxes,InstructionsDiv)
 ContentRow = row(ContentColumn,GeneColumn)
-MetSubtypePlotRow = row(MetHeatMap,plot_metsub_p,plot_metsub_m)
 MetaboliteColumn = column(MetSubtypePlotRow,MetaboliteSubtypeText)
 
 
 l = layout([
   [ContentColumn,GeneColumn],
-  [RowSpacer],
+  [RowSpacer2],
   [MetaboliteColumn],
 ], sizing_mode='fixed')
 
