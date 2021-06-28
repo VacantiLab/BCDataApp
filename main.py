@@ -245,6 +245,7 @@ ColumnSpacer1 = Spacer(width=20)
 ColumnSpacer2 = Spacer(width=20)
 ColumnSpacer3 = Spacer(width=20)
 ColumnSpacer4 = Spacer(width=20)
+ColumnSpacer5 = Spacer(width=20)
 DescriptiveTextMetSubtypes = "Tumors are clustered based on metabolite abundances (left) resulting in a groupings designated as \"Glycolytic\" and \"Non Glycolytic\". "\
                   "Glycolytic tumors are defined by low glucose and high lactate and alanine, i.e. they are using glucose to produce lactate/alanine via glycolysis. " \
                   "Non Glycolytic tumors are defined by high glucose and low lactate and alanine, i.e. they are not using glucose to produce lactate/alanine via glycolysis. "\
@@ -261,7 +262,7 @@ HeatMapWidth = int(HeatMapHeight * 1120/900)
 MetHeatMap = figure(x_range=(0,10), y_range=(0,10))
 MetHeatMap.frame_height = HeatMapHeight
 MetHeatMap.frame_width = HeatMapWidth
-MetHeatMap.image_url(x=0, y=10, w=10, h=10, url=["http://localhost:5006/BCDataApp/static/met_heat_map3.png"])
+MetHeatMap.image_url(x=0, y=10, w=10, h=10, url=["http://44.194.104.183:5006/BCDataApp/static/met_heat_map3.png"])
 MetHeatMap = StylePlot(MetHeatMap,PlotID='MetHeatMap')
 
 TextBoxes = column(gene_text[0],gene_text[1],gene_text[2],gene_text[3])
@@ -276,7 +277,7 @@ MetaboliteColumn = column(MetSubtypePlotRow,MetaboliteSubtypeText)
 
 
 l = layout([
-  [ContentColumn,GeneColumn],
+  [ContentColumn,ColumnSpacer5,GeneColumn],
   [RowSpacer2],
   [MetaboliteColumn],
 ], sizing_mode='fixed')
