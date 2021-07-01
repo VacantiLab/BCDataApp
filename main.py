@@ -230,9 +230,9 @@ plot_metsub_m = StylePlot(plot_metsub_m,PlotID='MetSubtype')
 
 
 # Application Layout ###########################################################
-DescriptiveTextCorrelation = "Abundances of proteins that are part of the same complex are tightly correlated across breast tumors. " \
-                             "This does not appear to be the case for the corresponing mRNA transcripts. "
-                             "The plots are initialized showing abundances of structural proteins of complex I of the electron transport chain.; "\
+DescriptiveTextCorrelation = "Abundances of proteins that are part of the same complex are tightly correlated across breast tumors. "\
+                             "This does not appear to be the case for the corresponing mRNA transcripts. "\
+                             "The plots are initialized showing abundances of structural proteins of complex I of the electron transport chain."
 CorrelationTextDiv = column(Div(text=DescriptiveTextCorrelation,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=730)
 DescriptiveTextSubtypes = "Breast cancer subtypes are defined by their gene expression profiles. " \
                           "The plots are initialized above showing abundances of ER (ESR1), PR (PGR), HER2 (ERBB2), and KI-67 (MKI67); "\
