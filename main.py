@@ -232,6 +232,7 @@ plot_metsub_m = StylePlot(plot_metsub_m,PlotID='MetSubtype')
 # Application Layout ###########################################################
 DescriptiveTextCorrelation = "Abundances of proteins that are part of the same complex are tightly correlated across breast tumors. " \
                              "This does not appear to be the case for the corresponing mRNA transcripts. "
+                             "The plots are initialized showing abundances of structural proteins of complex I of the electron transport chain.; "\
 CorrelationTextDiv = column(Div(text=DescriptiveTextCorrelation,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=730)
 DescriptiveTextSubtypes = "Breast cancer subtypes are defined by their gene expression profiles. " \
                           "The plots are initialized above showing abundances of ER (ESR1), PR (PGR), HER2 (ERBB2), and KI-67 (MKI67); "\
@@ -246,9 +247,9 @@ ColumnSpacer2 = Spacer(width=20)
 ColumnSpacer3 = Spacer(width=20)
 ColumnSpacer4 = Spacer(width=20)
 ColumnSpacer5 = Spacer(width=20)
-DescriptiveTextMetSubtypes = "Tumors are clustered based on metabolite abundances (left) resulting in a groupings designated as \"Glycolytic\" and \"Non Glycolytic\". "\
+DescriptiveTextMetSubtypes = "Tumors are clustered based on metabolite abundances (left) resulting in groupings designated as \"Glycolytic\" and \"Non-Glycolytic\". "\
                   "Glycolytic tumors are defined by low glucose and high lactate and alanine, i.e. they are using glucose to produce lactate/alanine via glycolysis. " \
-                  "Non Glycolytic tumors are defined by high glucose and low lactate and alanine, i.e. they are not using glucose to produce lactate/alanine via glycolysis. "\
+                  "Non-Glycolytic tumors are defined by high glucose and low lactate and alanine, i.e. they are not using glucose to produce lactate/alanine via glycolysis. "\
                   "Plots are initialized to display markers of proliferation, " \
                   "of which, Glycolytic tumors appear to have higher protein and mRNA expression. "\
                   "Values are means +/- standard error of the mean (SEM). "\
