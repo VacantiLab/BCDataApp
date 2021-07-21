@@ -6,11 +6,11 @@ def StylePlot(plot,PlotID='NA'):
     if PlotID != 'MetHeatMap':
         plot.y_range.range_padding = 0.25
         plot.toolbar_location = None
-        plot.xaxis.major_label_orientation = 1.57079632679 #pi/2
         plot.border_fill_color = "#d0cbcb"
         plot.xaxis.major_label_text_font_size = '0pt'
         plot.xaxis.major_tick_line_color = None
         plot.xaxis.minor_tick_line_color = None
+        plot.yaxis.minor_tick_line_color = None
         plot.xgrid.grid_line_color = None
         plot.ygrid.grid_line_color = None
         plot.background_fill_color = "#F3F2F2"
@@ -30,6 +30,12 @@ def StylePlot(plot,PlotID='NA'):
 
     if PlotID == 'MetSubtype':
         plot.xaxis.group_label_orientation = 1.57079632679 #pi/2
+
+    if PlotID == 'mRNA-Prot':
+        plot.xaxis.major_label_text_font_size = '8pt'
+        plot.xaxis.major_tick_line_color = 'black'
+        plot.title.align = 'center'
+
 
     if PlotID == 'MetHeatMap':
         plot.toolbar_location = None

@@ -24,25 +24,9 @@ from CreateSubtypeAverageDFs import CreateSubtypeAverageDFs
 from CreateSubtypeAveragePlotSources import CreateSubtypeAveragePlotSources
 from CreateMetSubAverageDFs import CreateMetSubAverageDFs
 from MakeSubtypePlots import MakeSubtypePlots
+from Get_mRNA_Prot_CorrelationSourceDicts import Get_mRNA_Prot_CorrelationSourceDicts
 
-# Import the data
-[df_p,df_m,x_data,genes,subtypes,subtype_colors] = ImportData()
-
-# Create the correlation plots
-[source_dict1,source_dict2,source_dict3,source_dict4,gene_plot] = GetCorrelationSourceDicts(df_p,df_m,x_data,genes,subtypes)
-
-# create the plot data source objects from the above dictionaries for each gene
-source1 = ColumnDataSource(data=source_dict1) #for bokeh widgets it is stored in a ColmnDataSource object
-source2 = ColumnDataSource(data=source_dict2) #for bokeh widgets it is stored in a ColmnDataSource object
-source3 = ColumnDataSource(data=source_dict3) #for bokeh widgets it is stored in a ColmnDataSource object
-source4 = ColumnDataSource(data=source_dict4) #for bokeh widgets it is stored in a ColmnDataSource object
-SourceList = [source1,source2,source3,source4]
-
-# In itialize the figure object
-plot_p=figure(x_range=FactorRange(*x_data), title='', x_axis_label='',y_axis_label='protein z-score',plot_width=350,plot_height=200)
-plot_m=figure(x_range=FactorRange(*x_data), title='', x_axis_label='',y_axis_label='mRNA z-score',plot_width=350,plot_height=200)
-#     x_range specifies that the data is categorical
-
+# Create Widget Responding Functions
 ################################################################################
 ################################################################################
 # Define the functions that keep track of what input box is being modified
@@ -173,6 +157,26 @@ def update_prot_trace(attrname, old, new):
 ################################################################################
 ################################################################################
 
+# Import the data
+[df_p,df_m,x_data,genes,subtypes,subtype_colors] = ImportData()
+
+# Protein Complex Subunit Correlation Plot
+###########################################
+# Create the protein complex correlation plot data source dictionaries
+[source_dict1,source_dict2,source_dict3,source_dict4,gene_plot] = GetCorrelationSourceDicts(df_p,df_m,x_data,genes,subtypes)
+
+# Create the plot data source objects from the above dictionaries for each gene
+source1 = ColumnDataSource(data=source_dict1) #for bokeh widgets it is stored in a ColmnDataSource object
+source2 = ColumnDataSource(data=source_dict2) #for bokeh widgets it is stored in a ColmnDataSource object
+source3 = ColumnDataSource(data=source_dict3) #for bokeh widgets it is stored in a ColmnDataSource object
+source4 = ColumnDataSource(data=source_dict4) #for bokeh widgets it is stored in a ColmnDataSource object
+SourceList = [source1,source2,source3,source4]
+
+# In itialize the figure object
+plot_p=figure(x_range=FactorRange(*x_data), title='', x_axis_label='',y_axis_label='protein z-score',plot_width=350,plot_height=200)
+plot_m=figure(x_range=FactorRange(*x_data), title='', x_axis_label='',y_axis_label='mRNA z-score',plot_width=350,plot_height=200)
+#     x_range specifies that the data is categorical
+
 SpecifyBoxNumberFunctionList = [SpecifyBoxNumber1,SpecifyBoxNumber2,SpecifyBoxNumber3,SpecifyBoxNumber4]
 
 # Create the lines that are displayed on the figure object
@@ -194,6 +198,31 @@ for j in [0,1,2,3]:
     gene_text[j].on_change('value',update_prot_trace)
 plot_p = StylePlot(plot_p)
 plot_m = StylePlot(plot_m)
+
+# mRNA-Protein Correlation Plots
+#################################
+# Create the protein complex correlation plot data source dictionaries
+[source_dict1,gene_plot] = Get_mRNA_Prot_CorrelationSourceDicts(df_p,df_m,x_data,genes,subtypes)
+
+# Create the plot data source objects from the above dictionaries for each gene
+source_mRNA_prot = ColumnDataSource(data=source_dict1) #for bokeh widgets it is stored in a ColmnDataSource object
+
+# In itialize the figure object
+plot_mRNA_prot1 = figure(title='Gene 1', x_axis_label='mRNA z-score',y_axis_label='protein z-score',plot_width=200,plot_height=200)
+plot_mRNA_prot1.circle('x1','y1',source=source_mRNA_prot)
+plot_mRNA_prot1 = StylePlot(plot_mRNA_prot1,PlotID='mRNA-Prot')
+
+plot_mRNA_prot2 = figure(title='Gene 2', x_axis_label='mRNA z-score',y_axis_label='protein z-score',plot_width=200,plot_height=200)
+plot_mRNA_prot2.circle('x2','y2',source=source_mRNA_prot)
+plot_mRNA_prot2 = StylePlot(plot_mRNA_prot2,PlotID='mRNA-Prot')
+
+plot_mRNA_prot3 = figure(title='Gene 3', x_axis_label='mRNA z-score',y_axis_label='protein z-score',plot_width=200,plot_height=200)
+plot_mRNA_prot3.circle('x3','y3',source=source_mRNA_prot)
+plot_mRNA_prot3 = StylePlot(plot_mRNA_prot3,PlotID='mRNA-Prot')
+
+plot_mRNA_prot4 = figure(title='Gene 4', x_axis_label='mRNA z-score',y_axis_label='protein z-score',plot_width=200,plot_height=200)
+plot_mRNA_prot4.circle('x4','y4',source=source_mRNA_prot)
+plot_mRNA_prot4 = StylePlot(plot_mRNA_prot4,PlotID='mRNA-Prot')
 
 # Line-Bar Plot for Subtypes ##########################################################
 #######################################################################################
@@ -230,12 +259,20 @@ plot_metsub_m = StylePlot(plot_metsub_m,PlotID='MetSubtype')
 
 
 # Application Layout ###########################################################
+JohanssonStudyText = "Johansson et al., Nat. Commun. 10:1600, 2019"
+JohanssonStudyTitleDiv = Div(text=JohanssonStudyText,style={'font-size':'150%', 'color':'black','font-style':'normal','font-weight':'bold'},width=900)
+
 DescriptiveTextCorrelation = "Abundances of proteins that are part of the same complex are tightly correlated across breast tumors. "\
                              "This does not appear to be the case for the corresponing mRNA transcripts. "\
                              "The plots are initialized showing abundances of structural proteins of complex I of the electron transport chain."
 
 CorrelationTextDiv = column(Div(text="Protein Complex Subunit Correlation:",style={'font-size':'100%', 'color':'black','font-style':'italic','font-weight':'bold'}),
                             Div(text=DescriptiveTextCorrelation,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=730)
+
+DescriptiveText_mRNA_Prot_Cor = "Protein and transcript abundances often are not correlated; indicating substantial utilization of post-transcriptional regulatory mechanisms."
+
+mRNA_Prot_TextDiv = column(Div(text="mRNA-Protein Correlation:",style={'font-size':'100%', 'color':'black','font-style':'italic','font-weight':'bold'}),
+                           Div(text=DescriptiveText_mRNA_Prot_Cor,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=845)
 
 DescriptiveTextSubtypes = "Breast cancer subtypes are defined by their gene expression profiles. " \
                           "The plots are initialized above showing abundances of ER (ESR1), PR (PGR), HER2 (ERBB2), and KI-67 (MKI67); "\
@@ -246,13 +283,19 @@ DescriptiveTextSubtypes = "Breast cancer subtypes are defined by their gene expr
 SubtypesTextDiv = column(Div(text="Protein and mRNA Expression by Breast Cancer PAM50 Subtype:",style={'font-size':'100%', 'color':'black','font-style':'italic','font-weight':'bold'}),
                          Div(text=DescriptiveTextSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=730)
 
+SpacerWidth = 30
+SpacerHeight = 30
+
 RowSpacer1 = Spacer(height=30)
 RowSpacer2 = Spacer(height=30)
+RowSpacer3 = Spacer(height=30)
+
 ColumnSpacer1 = Spacer(width=20)
 ColumnSpacer2 = Spacer(width=20)
 ColumnSpacer3 = Spacer(width=20)
 ColumnSpacer4 = Spacer(width=20)
 ColumnSpacer5 = Spacer(width=20)
+
 DescriptiveTextMetSubtypes = "Tumors are clustered based on metabolite abundances (left) resulting in groupings designated as \"Glycolytic\" and \"Non-Glycolytic\". "\
                   "Glycolytic tumors are defined by low glucose and high lactate and alanine, i.e. they are using glucose to produce lactate/alanine via glycolysis. " \
                   "Non-Glycolytic tumors are defined by high glucose and low lactate and alanine, i.e. they are not using glucose to produce lactate/alanine via glycolysis. "\
@@ -276,20 +319,26 @@ MetHeatMap.image_url(x=0, y=10, w=10, h=10, url=["http://44.194.104.183:5006/BCD
 MetHeatMap = StylePlot(MetHeatMap,PlotID='MetHeatMap')
 
 TextBoxes = column(gene_text[0],gene_text[1],gene_text[2],gene_text[3])
-CorrelationPlots = row(plot_p,ColumnSpacer1,plot_m)
-SubtypePlots = row(plot_subtype_p,ColumnSpacer2,plot_subtype_m)
+GeneColumn = column(TextBoxes,InstructionsDiv)
+
+CorrelationPlots = column(row(plot_p,ColumnSpacer1,plot_m),row(CorrelationTextDiv))
+mRNA_Prot_Plots = column(row(plot_mRNA_prot1,Spacer(width=15),plot_mRNA_prot2,Spacer(width=15),plot_mRNA_prot3,Spacer(width=15),plot_mRNA_prot4),mRNA_Prot_TextDiv)
+SubtypePlots = column(row(plot_subtype_p,ColumnSpacer2,plot_subtype_m),row(SubtypesTextDiv))
 MetSubtypePlotRow = row(MetHeatMap,ColumnSpacer3,plot_metsub_p,ColumnSpacer4,plot_metsub_m)
 
-ContentColumn = column(CorrelationPlots,CorrelationTextDiv,RowSpacer1,SubtypePlots,SubtypesTextDiv)
-GeneColumn = column(TextBoxes,InstructionsDiv)
-ContentRow = row(ContentColumn,GeneColumn)
 MetaboliteColumn = column(MetSubtypePlotRow,MetaboliteSubtypeText)
 
 
 l = layout([
-  [ContentColumn,ColumnSpacer5,GeneColumn],
-  [RowSpacer2],
-  [MetaboliteColumn],
+  [JohanssonStudyTitleDiv],
+  [Spacer(height=15)],
+  [Spacer(width=20),CorrelationPlots,GeneColumn],
+  [Spacer(width=20),RowSpacer1],
+  [Spacer(width=20),mRNA_Prot_Plots],
+  [Spacer(width=20),RowSpacer2],
+  [Spacer(width=20),SubtypePlots],
+  [Spacer(width=20),RowSpacer3],
+  [Spacer(width=20),MetaboliteColumn],
 ], sizing_mode='fixed')
 
 # Create the bokeh server application
