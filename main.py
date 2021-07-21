@@ -233,13 +233,19 @@ plot_metsub_m = StylePlot(plot_metsub_m,PlotID='MetSubtype')
 DescriptiveTextCorrelation = "Abundances of proteins that are part of the same complex are tightly correlated across breast tumors. "\
                              "This does not appear to be the case for the corresponing mRNA transcripts. "\
                              "The plots are initialized showing abundances of structural proteins of complex I of the electron transport chain."
-CorrelationTextDiv = column(Div(text=DescriptiveTextCorrelation,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=730)
+
+CorrelationTextDiv = column(Div(text="Protein Complex Subunit Correlation:",style={'font-size':'100%', 'color':'black','font-style':'italic','font-weight':'bold'}),
+                            Div(text=DescriptiveTextCorrelation,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=730)
+
 DescriptiveTextSubtypes = "Breast cancer subtypes are defined by their gene expression profiles. " \
                           "The plots are initialized above showing abundances of ER (ESR1), PR (PGR), HER2 (ERBB2), and KI-67 (MKI67); "\
                           "four immunohistochemical markers commonly used in the clinic. "\
                           "Valeus are means +/- standard error of the mean (SEM). "\
                           "If data is not available for a gene, values will appear as all zeros with no SEMs."
-SubtypesTextDiv = column(Div(text=DescriptiveTextSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=730)
+
+SubtypesTextDiv = column(Div(text="Protein and mRNA Expression by Breast Cancer PAM50 Subtype:",style={'font-size':'100%', 'color':'black','font-style':'italic','font-weight':'bold'}),
+                         Div(text=DescriptiveTextSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=730)
+
 RowSpacer1 = Spacer(height=30)
 RowSpacer2 = Spacer(height=30)
 ColumnSpacer1 = Spacer(width=20)
@@ -254,7 +260,10 @@ DescriptiveTextMetSubtypes = "Tumors are clustered based on metabolite abundance
                   "of which, Glycolytic tumors appear to have higher protein and mRNA expression. "\
                   "Values are means +/- standard error of the mean (SEM). "\
                   "If data is not available for a gene, values will appear as all zeros with no SEMs."
-MetaboliteSubtypeText = column(Div(text=DescriptiveTextMetSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=850)
+
+MetaboliteSubtypeText = column(Div(text="Protein and mRNA Expression by Glycolytic Characterisitcs:",style={'font-size':'100%', 'color':'black','font-style':'italic','font-weight':'bold'}),
+                               Div(text=DescriptiveTextMetSubtypes,style={'font-size':'100%', 'color':'black','font-style':'italic'}),width=850)
+
 InstructionsText = "To view data for a different gene, click on a box and begin typing a HGNC gene symbol."
 InstructionsDiv = Div(text=InstructionsText,style={'font-size':'100%', 'color':'red','font-style':'italic'},width=200)
 
