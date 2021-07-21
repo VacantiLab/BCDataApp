@@ -200,7 +200,7 @@ plot_p = StylePlot(plot_p)
 plot_m = StylePlot(plot_m)
 
 # mRNA-Protein Correlation Plots
-#################################
+##################################
 # Create the protein complex correlation plot data source dictionaries
 [source_dict1,gene_plot] = Get_mRNA_Prot_CorrelationSourceDicts(df_p,df_m,x_data,genes,subtypes)
 
