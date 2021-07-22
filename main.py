@@ -50,7 +50,7 @@ def SpecifyBoxNumber4(attrname, old, new):
 # Define the function that updates the data in the figure object
 def update_prot_trace(attrname, old, new):
     print(select_box_index)
-    # correlation plots
+    # correlation line plots
     gene = new
     if gene in list(df_p.index):
         py = df_p.loc[gene]
@@ -63,6 +63,22 @@ def update_prot_trace(attrname, old, new):
         my = df_m.loc['blank']
     GeneListRepeat = np.repeat(gene,len(x_data))
     SourceList[select_box_index].data = dict(x=x_data, py=py, my=my, gene=GeneListRepeat)
+
+    # correlation scatter plots
+    gene = new
+    if gene in list(df_p.index):
+        cor_y = df_p.loc[gene]
+    if gene not in list(df_p.index):
+        cor_y = df_p.loc['blank']
+
+    if gene in list(df_m.index):
+        cor_x = df_m.loc[gene]
+    if gene not in list(df_m.index):
+        cor_x = df_m.loc['blank']
+    x_to_change = mRNA_prot_xList[select_box_index]
+    y_to_change = mRNA_prot_yList[select_box_index]
+    source_mRNA_prot.data[x_to_change] = cor_x
+    source_mRNA_prot.data[y_to_change] = cor_y
 
     # subtype bar-scatter plots
     # initialize lists
@@ -201,11 +217,14 @@ plot_m = StylePlot(plot_m)
 
 # mRNA-Protein Correlation Plots
 ##################################
-# Create the protein complex correlation plot data source dictionaries
+# Create the mRNA-protein correlation plot data source dictionaries
 [source_dict1,gene_plot] = Get_mRNA_Prot_CorrelationSourceDicts(df_p,df_m,x_data,genes,subtypes)
 
 # Create the plot data source objects from the above dictionaries for each gene
 source_mRNA_prot = ColumnDataSource(data=source_dict1) #for bokeh widgets it is stored in a ColmnDataSource object
+
+mRNA_prot_xList = ['x1','x2','x3','x4']
+mRNA_prot_yList = ['y1','y2','y3','y4']
 
 # In itialize the figure object
 plot_mRNA_prot1 = figure(title='Gene 1', x_axis_label='mRNA z-score',y_axis_label='protein z-score',plot_width=200,plot_height=200)
