@@ -5,7 +5,7 @@ def Get_mRNA_Prot_CorrelationSourceDicts(df_p,df_m,x_data,genes,subtypes):
     from pdb import set_trace
 
     # set the initial genes to be viewed
-    gene_plot = ['NDUFS2','NDUFS3','NDUFS7','MPC1']
+    gene_plot = ['NDUFS2','NDUFS3','NDUFS7','blank']
 
     # create an entry for a "blank" gene
     blank_data = np.zeros(len(x_data))
